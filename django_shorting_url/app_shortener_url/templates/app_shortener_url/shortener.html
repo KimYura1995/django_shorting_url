@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+  <link rel="stylesheet" href="{% static 'css/shortener.css' %}">
+  <title>Укорачиватель URL</title>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <h1 class="header__title">Укорачиватель URL</h1>
+    </div>
+  </header>
+  <main class="main">
+    <h2 class="main__title">Специально для Avito</h2>
+    <form class='main__form' action="{% url 'url_shortener' %}" method="POST">
+      {% csrf_token %}
+      <ul class="main__list">
+        {{ form.as_ul }}
+      </ul>
+    <input class="main__submit" type="submit" value="Сгенерировать">
+    </form>
+    <ul class="main__list-links">
+      {% for item in history %}
+      <li class="main__item">
+        <span>{{ item.original_url|truncatechars:45 }}</span>
+        <a href="{{ item.get_absolute_url }}">{{ request.get_host }}{{ item.get_absolute_url }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </main>
+  <footer class="footer">
+    <div class="container">
+      <span class="footer__copy">© Ким Юрий 2020</span>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,141 @@
+* {
+  box-sizing: border-box;
+}
+html {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+a {
+  color: black;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+    max-width: 1170px;
+    margin: 0 auto;
+}
+
+.header {
+    background-color: #007bff;
+    padding: 20px 0;
+}
+
+.header__title {
+    text-align: center;
+    color: white;
+}
+
+.main {
+    padding: 40px;
+    text-align: center;
+}
+
+.main__form {
+    margin-top: 30px;
+}
+
+.main__list li label {
+    display: block;
+    font-size: 20px;
+    margin-top: 30px;
+}
+
+.main__list li input {
+    margin-top: 10px;
+    width: 50%;
+    padding: 10px;
+    font-size: 18px;
+}
+
+.errorlist {
+    margin-top: 30px;
+}
+
+.errorlist li {
+    color: red;
+}
+
+.helptext {
+    margin-top: 20px;
+    display: block;
+    color: grey;
+}
+
+.main__submit {
+    margin-top: 20px;
+    padding: 10px 50px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+}
+
+.main__list-links {
+    margin: 20px auto 0 auto;
+    width: 50%;
+}
+
+.main__item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.main__item:not(:first-child) {
+    margin-top: 10px;
+}
+
+.main__item span {
+    font-size: 18px;
+}
+
+.main__item a {
+    font-size: 18px;
+    color: #007bff;
+}
+
+.footer {
+    padding: 20px 0;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #007bff;
+}
+
+.footer__copy {
+    display: block;
+    color: white;
+    text-align: center;
+}
+
+@media (max-width: 1280px) {
+    .container {
+        padding: 0 20px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .main__list li input {
+        width: 90%;
+    }
+
+    .main__list-links {
+        width: 90%;
+    }
+
+    .main__item {
+        flex-wrap: wrap;
+    }
+}
