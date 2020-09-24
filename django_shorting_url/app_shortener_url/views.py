@@ -2,9 +2,12 @@ import logging
 
 from django.shortcuts import redirect
 from django.views.generic import FormView, DetailView
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from app_shortener_url.forms import URLShortenerForm
-from app_shortener_url.models import ClientModel, URLModel
+from app_shortener_url.models import ClientModel, URLModel, get_random_key
+from app_shortener_url.serializers import URLSerializer
 
 
 logger = logging.getLogger('views')
@@ -51,5 +54,27 @@ class URLRedirectView(DetailView):
     def get(self, request, *args, **kwargs):
         obj = self.get_object()
         logger.info(f'{request.META.get("REMOTE_ADDR")} - redirect {obj.original_url}')
+        print(obj.original_url)
         return redirect(obj.original_url)
 
+
+class URLShortenerAPIView(APIView):
+
+    def get(self, request):
+        serial = URLSerializer(data=request.GET)
+        if serial.is_valid():
+            shortener_url = get_random_key()
+            client = ClientModel.objects.get_or_create(ip=request.META.get('REMOTE_ADDR'))
+            url = URLModel.objects.create(
+                ip_client=client[0],
+                slug=shortener_url,
+                original_url=request.GET.get('original_url'),
+            )
+            url.save()
+            data = {
+                'original_url': url.original_url,
+                'redirect_url': request.META['HTTP_HOST'] + "/" + shortener_url,
+            }
+            return Response(data, status=200)
+        else:
+            return Response(serial.errors, status=403)
