@@ -15,3 +15,15 @@ https://kim-yura-work.ru/
     ```
 6. Открыть браузер и перейти
     http://127.0.0.1:8000/
+    
+### Работа с API:
+* Вы можете отправить GET запрос:
+* https://kim-yura-work.ru/api/?original_url=<your_url>
+* your_url - ссылка которую вы хотите укоротить
+* В ответ вы получите JSON:
+    ``` json
+    {
+    "original_url": "<your_url>",
+    "redirect_url": "<shortened_url>"
+    }
+    ```
