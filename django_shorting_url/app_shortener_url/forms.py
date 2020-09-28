@@ -26,4 +26,3 @@ class URLShortenerForm(forms.ModelForm):
         raise forms.ValidationError(
             message='Введенная кастомная ссылка занята',
         )
-

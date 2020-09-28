@@ -1,41 +1,48 @@
-{% load static %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{% load crispy_forms_tags %}
 
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
-  <link rel="stylesheet" href="{% static 'css/shortener.css' %}">
   <title>Укорачиватель URL</title>
 </head>
-<body>
-  <header class="header">
+<body class="bg-light">
+  <header class="header bg-primary py-3">
     <div class="container">
-      <h1 class="header__title">Укорачиватель URL</h1>
+      <div class=" row">
+        <h1 class="col-12 text-center">Укорачиватель URL</h1>
+      </div>
     </div>
   </header>
-  <main class="main">
-    <h2 class="main__title">Специально для Avito</h2>
-    <form class='main__form' action="{% url 'url_shortener' %}" method="POST">
-      {% csrf_token %}
-      <ul class="main__list">
-        {{ form.as_ul }}
-      </ul>
-    <input class="main__submit" type="submit" value="Сгенерировать">
-    </form>
-    <ul class="main__list-links">
+  <main class="container">
+    <div class="row">
+      <h2 class="col-12 text-center mt-3">Специально для Avito</h2>
+    </div>
+    <div class="row">
+      <form class="col-12 mt-3" action="{% url 'url_shortener' %}" method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input class="btn btn-primary btn-block mt-4" type="submit" value="Сгенерировать">
+      </form>
+    </div>
+    <ul class="list-group mt-3 mb-5 my-lg-4">
       {% for item in history %}
-      <li class="main__item">
-        <span>{{ item.original_url|truncatechars:45 }}</span>
-        <a href="{{ item.get_absolute_url }}">{{ request.get_host }}{{ item.get_absolute_url }}</a>
+      <li class="list-group-item">
+        <div class="row">
+          <span class="col-12 col-lg-6">{{ item.original_url|truncatechars:45 }}</span>
+          <a class="col-12 col-lg-6 mt-2 mt-lg-0 text-right" href="{{ item.get_absolute_url }}">{{ request.get_host }}{{ item.get_absolute_url }}</a>
+        </div>
       </li>
       {% endfor %}
     </ul>
   </main>
-  <footer class="footer">
+  <footer class="navbar fixed-bottom bg-primary">
     <div class="container">
-      <span class="footer__copy">© Ким Юрий 2020</span>
+      <span class="d-block col-12 text-white text-center">© Ким Юрий 2020</span>
     </div>
   </footer>
 </body>
